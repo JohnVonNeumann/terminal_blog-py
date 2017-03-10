@@ -1,7 +1,25 @@
 import pymongo
 
+# Database is not something we will be building numerous of inside
+# our app, not like a blog or post.
 class Database(object):
-    uri = "mongodb://127.0.0.1:27017"
-    client = pymongo.MongoClient(uri)
-    database = client['fullstack']
-    collection = database['posts']
+    URI = "mongodb://127.0.0.1:27017"
+    DATABASE = None
+
+    @staticmethod
+    def initialize():
+        client = pymongo.MongoClient(Database.URI)
+        Database.DATABASE = client['fullstack']
+
+    @staticmethod
+    def insert(collection, data):
+        Database.DATABASE[collection].insert(data)
+
+    @staticmethod
+    def find(collection, query):
+        return Database.DATABASE[collection].find(query)
+
+    @staticmethod
+    def find_one(collection, query):
+        return Database.DATABASE[collection].find_one(query)
+
