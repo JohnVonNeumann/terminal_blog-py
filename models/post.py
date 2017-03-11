@@ -8,14 +8,14 @@ class Post(object):
     # allows us to build a new Post object
     # usage: post = Post(title="blah", content="text", author="hp")
     def __init__(self, title, content, author, blog_id=None, date_created=datetime.datetime.utcnow(), post_id=None):
-        self.blog_id = uuid.uuid4().hex if blog_id is None else blog_id
+        self.blog_id = uuid.uuid3(uuid.NAMESPACE_DNS, author).hex if blog_id is None else blog_id
         self.title = title
         self.content = content
         self.author = author
         self.date_created = date_created
         self.post_id = uuid.uuid4().hex if post_id is None else post_id
 
-    # Database not setup yet, coming soon.
+    # inserts posts into mongo collection in json format
     def save_to_mongo(self):
         Database.insert(collection='posts',
                         data=self.json())
@@ -38,5 +38,5 @@ class Post(object):
 
     @staticmethod
     # go into db with id param, search thru blog_id for param
-    def from_blog(post_id):
-        return [post for post in Database.find(collection='posts', query={'blog_id': post_id})]
+    def from_blog(blog_id):
+        return [blog for blog in Database.find(collection='posts', query={'blog_id': blog_id})]

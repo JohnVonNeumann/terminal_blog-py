@@ -11,3 +11,7 @@
 * Debated over implementig uuid1 or uuid4 for my application and after some doc reading and a forum post (http://stackoverflow.com/questions/1785503/when-should-i-use-uuid-uuid1-vs-uuid-uuid4-in-python#1785592) it seems 1 is fine to go with unless there is a specific reason not too.
 
 * So turns out I was wrong about uuid1 vs uuid4, we should use uuid4 for this particular application because with uuid1 you take in info about the host and time, therefore, you would be getting very similar ID's. Although to be fair, 1 has a marginal chance of collision so it really wouldn't matter.
+
+* My implementation of the blog_id is incorrect, so I want persistent blog_id's so that if say, Joe Bloggs has a blog, he always has the same blog_id, that way, searches can be run against the blog_id and all posts can be returned, I think I can do this with uuid, so perhaps i create a uuid using author name as the hash seed, ill give it a crack.
+
+* Fixed up the blog_id search and created a persistent blog_id that is built from author param input on the build of a new post class instance. And it works!

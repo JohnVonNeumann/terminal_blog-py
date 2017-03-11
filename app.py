@@ -1,9 +1,10 @@
 from models.post import Post
+from database import Database
 
-post = Post("trees", "memes", "jeeves")
-post2 = Post("things and things", "poetry", "jeeves")
+Database.initialize()
 
-
+post = Post.from_blog(blog_id="6939757a82fc3149990a9d5843dc7f0a")
+print(post)
 # More ways of doing the same thing:
 # ----------------------------------
 #
