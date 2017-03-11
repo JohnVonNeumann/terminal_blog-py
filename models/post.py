@@ -6,12 +6,13 @@ from database import Database
 class Post(object):
 
     # allows us to build a new Post object
-    def __init__(self, title, content, author, blog_id=None, date_created=None, post_id=None):
+    # usage: post = Post(title="blah", content="text", author="hp")
+    def __init__(self, title, content, author, blog_id=None, date_created=datetime.datetime.utcnow(), post_id=None):
         self.blog_id = uuid.uuid4().hex if blog_id is None else blog_id
         self.title = title
         self.content = content
         self.author = author
-        self.date_created = datetime.date.today() if date_created is None else date_created
+        self.date_created = date_created
         self.post_id = uuid.uuid4().hex if post_id is None else post_id
 
     # Database not setup yet, coming soon.
