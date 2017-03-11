@@ -3,8 +3,10 @@ from database import Database
 
 Database.initialize()
 
-post = Post.from_blog(blog_id="6939757a82fc3149990a9d5843dc7f0a")
-print(post)
+posts = Post.from_blog(blog_id="6939757a82fc3149990a9d5843dc7f0a")
+for post in posts:
+    print(posts)
+
 # More ways of doing the same thing:
 # ----------------------------------
 #

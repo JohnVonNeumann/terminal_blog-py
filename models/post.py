@@ -1,9 +1,10 @@
 import uuid
 import datetime
+from models.blog import Blog
 from database import Database
 
 
-class Post(object):
+class Post(Blog):
 
     # allows us to build a new Post object
     # usage: post = Post(title="blah", content="text", author="hp")
