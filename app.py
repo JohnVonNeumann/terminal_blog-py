@@ -1,5 +1,3 @@
-__author__ = 'lw'
-
 from models.post import Post
 
 post = Post("trees", "memes", "jeeves")
@@ -24,5 +22,3 @@ post2 = Post("things and things", "poetry", "jeeves")
 # students = collection.find({})
 # for each in students:
 #     print(each)
-
-

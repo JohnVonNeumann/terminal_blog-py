@@ -9,3 +9,5 @@
 * I think I was potentially getting tired of the way I was building this stuff yesterday, I wasn't really challenging myself with it, so today I've refreshed and I will be seeing what we are doing in each video before building it myself then checking if I've done it correctly. Like in my ML stuff.
 
 * Debated over implementig uuid1 or uuid4 for my application and after some doc reading and a forum post (http://stackoverflow.com/questions/1785503/when-should-i-use-uuid-uuid1-vs-uuid-uuid4-in-python#1785592) it seems 1 is fine to go with unless there is a specific reason not too.
+
+* So turns out I was wrong about uuid1 vs uuid4, we should use uuid4 for this particular application because with uuid1 you take in info about the host and time, therefore, you would be getting very similar ID's. Although to be fair, 1 has a marginal chance of collision so it really wouldn't matter.

@@ -1,8 +1,10 @@
 import pymongo
-
 # Database is not something we will be building numerous of inside
 # our app, not like a blog or post.
+
+
 class Database(object):
+
     URI = "mongodb://127.0.0.1:27017"
     DATABASE = None
 
@@ -22,4 +24,3 @@ class Database(object):
     @staticmethod
     def find_one(collection, query):
         return Database.DATABASE[collection].find_one(query)
-
