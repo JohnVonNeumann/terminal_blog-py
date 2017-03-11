@@ -2,17 +2,18 @@ __author__ = 'lw'
 
 from models.post import Post
 
-
-students = [each['mark'] for each in collection.find({})]
-print(students)
-
 post = Post("trees", "memes", "jeeves")
 post2 = Post("things and things", "poetry", "jeeves")
 
 
 # More ways of doing the same thing:
 # ----------------------------------
-
+#
+# students = [each['mark'] for each in collection.find({})]
+# print(students)
+#
+#            OR
+#
 # students = collection.find({})
 # student_list = []
 # for student in students:
