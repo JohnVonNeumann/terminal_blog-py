@@ -1,34 +1,48 @@
 import uuid
 import datetime
+from models.post import Post
 from database import Database
 
 
 class Blog(object):
 
-    def __init__(self, blog_title, author, date_created=datetime.datetime.utcnow(), blog_id=None):
-        self.blog_id = uuid.uuid3(uuid.NAMESPACE_DNS, author).hex if blog_id is None else blog_id
-        self.blog_title = blog_title
+    def __init__(self, author, title, description, blog_id=None):
         self.author = author
-        self.date_created = date_created
+        self.title = title
+        self.description = description
+        self.blog_id = uuid.uuid(uuid.NAMESPACE_DNS, author).hex if blog_id is None else blog_id
 
-    # inserts posts into mongo collection in json format
+    def new_post(self):
+        title = input("Enter post title: ")
+        content = input("Enter post content: ")
+        date = input("Enter post date, or leave blank for today (in format DDMMYY): ")
+        post = Post(blog_id=self.blog_id,
+                    title=title,
+                    content=content,
+                    author=self.author,
+                    date_created=datetime.datetime.strptime(date, "%d%m%Y"))  #string parse time
+        post.save_to_mongo()
+
+    def get_posts(self):
+        return Post.from_blog(self.blog_id)
+
     def save_to_mongo(self):
-        Database.insert(collection='posts',
+        Database.insert(collection='blogs',
                         data=self.json())
 
-    # convert to json for mongo db
     def json(self):
-        return {
-            'blog_id': self.blog_id,
-            'title': self.title,
-            'content': self.content,
+        return{
             'author': self.author,
-            'created': self.date_created,
-            'post_id': self.post_id
+            'title': self.title,
+            'description': self.description,
+            'blog_id': self.blog_id
         }
 
     @staticmethod
-    # go into db with id param, search thru blog_id for param
-    def from_blog(blog_id):
-        return [blog for blog in Database.find(collection='posts', query={'blog_id': blog_id})]
-
+    def get_from_mongo(cls, blog_id):
+        blog_data = Database.find_one(collection="blogs",
+                                      query={'blog_id': blog_id})
+        return cls(author=blog_data['author'],
+                   title=blog_data['title'],
+                   description=blog_data['description'],
+                   blog_id=blog_data['blog_id'])
