@@ -1,12 +1,20 @@
 from models.post import Post
 from database import Database
+from models.blog import Blog
 
 Database.initialize()
 
-posts = Post.from_blog(blog_id="6939757a82fc3149990a9d5843dc7f0a")
-for post in posts:
-    print(posts)
+blog = Blog(author="Jose",
+            title="Sample title",
+            description="Sample description")
 
+blog.new_post()
+
+blog.save_to_mongo()
+
+from_database = Blog.from_mongo(blog.id)
+
+blog.get_posts()
 # More ways of doing the same thing:
 # ----------------------------------
 #
