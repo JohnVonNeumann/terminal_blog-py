@@ -27,12 +27,25 @@ class Menu(object):
     def run_menu(self):
         read_or_write = input("Do you want to read (R) or write (W) blogs? ")
         if read_or_write == "R":
-            # list blogs in database
-            # allow users to pick one
-            # display posts
+            self._list_blogs()
+            self._view_blogs()
+           pass
         elif read_or_write == "W":
-            # prompt them to write a post
+            self.user_blog.new_post()
         else:
             print("Thank you for blogging!")
+
+    def _list_blogs(self):
+        blogs = Database.find(collection='blogs',
+                              query={})
+        for blog in blogs:
+            print("ID {}, Title: {}, Author: {}".format(blog['id'], blog['title'], blog['author']))
+
+    def _view_blog(self):
+        blog_to_see = input("Enter the ID of the blog you'd like to read: ")
+        blog = Blog.from_mongo(blog_to_see)
+        posts = blog.get_posts()
+        for post in posts:
+            print("Date: {}, title: {}\n\n{}".format(post['created_date'], post['title'], post['content']))
 
 
