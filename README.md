@@ -15,3 +15,5 @@
 * My implementation of the blog_id is incorrect, so I want persistent blog_id's so that if say, Joe Bloggs has a blog, he always has the same blog_id, that way, searches can be run against the blog_id and all posts can be returned, I think I can do this with uuid, so perhaps i create a uuid using author name as the hash seed, ill give it a crack.
 
 * Fixed up the blog_id search and created a persistent blog_id that is built from author param input on the build of a new post class instance. And it works!
+
+* When creating methods, if we add _blahblahmethod() to the front of the method, we create a private method that is only able to be called by the class in which they were created.
